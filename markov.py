@@ -12,7 +12,6 @@ def open_and_read_file(file_path):
 
     # your code goes here
     contents = open(file_path).read()
-    print(contents)
     return contents
 
 
@@ -40,12 +39,40 @@ def make_chains(text_string):
         >>> chains[('there','juanita')]
         [None]
     """
+        
 
     chains = {}
+    
+    text_list = text_string.split()
+    
 
-    # your code goes here
+    # def create_value_list():
+    #     return "Works!"
 
-    return chains
+    for index in range(len(text_list)-2):
+        #chains[(text_list[index], text_list[index+1])] = text_list[index+2]
+        key = (text_list[index], text_list[index+1])
+        next_word = text_list[index+2]
+        # chains[key] = chains.get(key, create_value_list())
+
+        if chains.get(key, False) == False: # Key is not in dictionary
+            # print("If")
+            value_list = []
+            value_list.append(next_word)
+            chains[key] = value_list
+        else:
+            # print("ELSE")
+            # chains[key]
+            key_value_list = chains[key]
+            key_value_list.append(next_word)
+            chains[key] = key_value_list
+
+
+    # key = ("Would", "you")
+
+
+    print(chains)
+    # return chains
 
 
 def make_text(chains):

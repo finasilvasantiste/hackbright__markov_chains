@@ -1,6 +1,7 @@
 """Generate Markov text from text files."""
 
 from random import choice
+from random import randrange
 
 
 def open_and_read_file(file_path):
@@ -12,6 +13,7 @@ def open_and_read_file(file_path):
 
     # your code goes here
     contents = open(file_path).read()
+
     return contents
 
 
@@ -44,56 +46,62 @@ def make_chains(text_string):
     chains = {}
     
     text_list = text_string.split()
-    
-
-    # def create_value_list():
-    #     return "Works!"
+    # return "Works!"
 
     for index in range(len(text_list)-2):
-        #chains[(text_list[index], text_list[index+1])] = text_list[index+2]
         key = (text_list[index], text_list[index+1])
         next_word = text_list[index+2]
-        # chains[key] = chains.get(key, create_value_list())
 
         if chains.get(key, False) == False: # Key is not in dictionary
-            # print("If")
             value_list = []
             value_list.append(next_word)
             chains[key] = value_list
         else:
-            # print("ELSE")
-            # chains[key]
-            key_value_list = chains[key]
+            key_value_list = chains[key] # Key is already in dictionary
             key_value_list.append(next_word)
             chains[key] = key_value_list
 
 
-    # key = ("Would", "you")
+    # print(chains)
 
-
-    print(chains)
-    # return chains
+    return chains
 
 
 def make_text(chains):
     """Return text from chains."""
 
-    words = []
+    sentence = []
+
 
     # your code goes here
+    for key in chains:
+        subsentence =[]
+        # subsentence = str(key) + chains[key][0]
+        # sentence.append(key[0])
+        # sentence.append(key[1])
+        # sentence.append(chains[key][0])
+        subsentence.append(key[0])
+        subsentence.append(key[1])
+        subsentence.append(chains[key][0])
+        #print(subsentence)
+        sentence.extend(subsentence)
 
-    return " ".join(words)
+    # print(sentence)
+    # print(" ".join(sentence))
+    return " ".join(sentence)
 
 
 input_path = "green-eggs.txt"
 
-# Open the file and turn it into one long string
+# 1. Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
 
-# Get a Markov chain
+# 2. Get a Markov chain
 chains = make_chains(input_text)
 
-# Produce random text
+# 3. Produce random text
 random_text = make_text(chains)
 
-print(random_text)
+# print(random_text)chains = make_chains(input_text)
+
+# 3. Produce random text

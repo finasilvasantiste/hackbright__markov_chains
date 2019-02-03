@@ -71,23 +71,41 @@ def make_text(chains):
     """Return text from chains."""
 
     sentence = []
+    subsentence =[]
+    first_key = list(chains.keys())[0]
+    first_word = first_key[0]
+    second_word = first_key[1]
+
+    subsentence.append(first_word)
+    subsentence.append(second_word)
+
+    random_index = randrange(0, len(chains[first_key]))
+    
+    subsentence.append(chains[first_key][random_index])
+
+    sentence.extend(subsentence)
+
+    sec_last_word= sentence[-2]
+    last_word = sentence[-1]
+
+    next_key = (sec_last_word, last_word)
 
 
-    # your code goes here
-    for key in chains:
+    while chains.get(next_key, False):
+        # print('match!')
         subsentence =[]
-        # subsentence = str(key) + chains[key][0]
-        # sentence.append(key[0])
-        # sentence.append(key[1])
-        # sentence.append(chains[key][0])
-        subsentence.append(key[0])
-        subsentence.append(key[1])
-        subsentence.append(chains[key][0])
-        #print(subsentence)
+        random_index = randrange(0, len(chains[next_key]))
+        
+        subsentence.append(chains[next_key][random_index])
+
         sentence.extend(subsentence)
 
+        sec_last_word= sentence[-2]
+        last_word = sentence[-1]
+
+        next_key = (sec_last_word, last_word)
+
     # print(sentence)
-    # print(" ".join(sentence))
     return " ".join(sentence)
 
 
@@ -102,6 +120,5 @@ chains = make_chains(input_text)
 # 3. Produce random text
 random_text = make_text(chains)
 
-# print(random_text)chains = make_chains(input_text)
-
 # 3. Produce random text
+print(random_text)
